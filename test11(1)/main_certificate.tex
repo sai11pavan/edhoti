@@ -1,0 +1,112 @@
+% A4 landscape certificate (297 x 210 mm).
+% Compile with: pdflatex main_certificate.tex (twice for background positioning).
+% Place all.pdf and Zeichnung.pdf next to this file to include the artwork.
+\documentclass[12pt,a4paper,landscape]{article}
+%\usepackage[a4paper,landscape,margin=18mm]{geometry}
+\usepackage[
+  a4paper,
+  landscape,
+  left=18mm,
+  right=18mm,
+  top=5mm,
+  bottom=18mm
+]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,ngerman]{babel}
+\usepackage{graphicx}
+\usepackage{ragged2e}
+\usepackage{tikz}
+\usepackage{ifthen}
+\usepackage{microtype}
+\usepackage{lmodern}
+\renewcommand{\familydefault}{\sfdefault}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+% -------------------- USER-FILL (certificate) ------------------------
+% Language toggle: set to de or en
+\def\CertificateLang{en}
+
+% Branding & org
+\newcommand*{\CertLeftLogo}{all.pdf}   % optional
+\newcommand*{\CertRightLogo}{logo_right.png} % optional
+\newcommand*{\CertOrg}{AI Summer School "AI and Industry"}
+%\newcommand*{\CertDept}{Faculty of Electrical Engineering, Media and Computer Science}
+%\newcommand*{\CertURL}{https://www.oth-aw.de}
+
+% Recipient & event
+\newcommand*{\CertName}{Alexandra	Müllerová}
+\newcommand*{\CertEvent}{Bavarian–Czech AI Summer School "AI and Industry"}
+\newcommand*{\CertEventName}{Hackathon: Numerical Code Recognition on an Industrial Seal}
+\newcommand*{\CertDates}{7–11 September 2026}
+\newcommand*{\CertPlace}{Speinshart Scientific Center for AI and SuperTech \\ Speinshart, Germany}
+\newcommand*{\CertHours}{32}
+\newcommand*{\CertECTS}{1}
+
+% Issue
+\newcommand*{\CertIssuedAt}{Speinshart, Germany}
+\newcommand*{\CertIssuedDate}{11.09.2026}
+\newcommand*{\CertSigner}{Prof. Dr. Tatyana Ivanovska\\ Prof. Dr. Jan Posp\'{\i}\v{s}il}
+\newcommand*{\CertSignerRole}{Programme Chairs}
+\newcommand*{\CertSignature}{signature.png} % optional scanned signature
+% Optional full-page background image (file path). Comment out to disable.
+\newcommand*{\CertBG}{new_bkg2026.png}
+% ---------------------------------------------------------------------
+
+% Background artwork retains its proportions on the A4 page.
+\AddToHook{shipout/background}{%
+  \IfFileExists{\CertBG}{%
+    \begin{tikzpicture}[remember picture,overlay]
+      \node[anchor=center,opacity=1] at (current page.center)
+        {\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{\CertBG}};
+    \end{tikzpicture}%
+  }{}%
+}
+
+\begin{document}
+\ifthenelse{\equal{\CertificateLang}{de}}{\selectlanguage{ngerman}}{\selectlanguage{english}}
+% Fixed header area keeps the layout stable when the optional logo is absent.
+\begin{minipage}{\linewidth}
+  \raggedright
+  \IfFileExists{\CertLeftLogo}{%
+    \includegraphics[width=\linewidth,height=35mm,keepaspectratio, trim=0mm 0mm 0mm 10mm,
+  clip]{\CertLeftLogo}%
+  }{}
+\end{minipage}
+
+\vspace{8mm}
+\begin{center}
+{\fontsize{35}{45}\selectfont\bfseries
+\ifthenelse{\equal{\CertificateLang}{de}}{TEILNAHMEBESCHEINIGUNG}{CERTIFICATE OF PARTICIPATION}\par}
+
+%\vspace{4mm}
+%{\large \CertOrg\par}
+
+\vspace{9mm}
+{\fontsize{29}{35}\selectfont\bfseries \CertName\par}
+\vspace{5mm}
+{\Large \ifthenelse{\equal{\CertificateLang}{de}}{erfolgreich an der}{has successfully participated in}\par}
+\vspace{3mm}
+{\huge\bfseries\emph{\CertEvent}\par}
+\vspace{2mm}
+{\Large\bfseries \CertEventName\par}
+\vspace{3mm}
+{\Large \CertDates\ \\ \CertPlace\par}
+\vspace{5mm}
+{\large \ifthenelse{\equal{\CertificateLang}{de}}{Gesamtaufwand:}{Total workload:}\quad\textbf{\CertHours\,h}\par}
+\end{center}
+
+\vfill
+\begin{minipage}[b]{0.45\linewidth}
+  \raggedright\small
+  \ifthenelse{\equal{\CertificateLang}{de}}{Ausstellungsort/-datum}{Place/Date}:\\[1mm]
+  \textbf{\CertIssuedAt, \CertIssuedDate}
+\end{minipage}\hfill
+\begin{minipage}[b]{0.45\linewidth}
+  \raggedleft\small
+  % Uncomment to include a scanned signature:
+  %\IfFileExists{\CertSignature}{\includegraphics[height=16mm]{\CertSignature}\\}{}
+  \textbf{\CertSigner}\\[1mm]
+  \CertSignerRole
+\end{minipage}
+\end{document}

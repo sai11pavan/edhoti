@@ -1,0 +1,134 @@
+
+
+% =====================================================================
+% (B) CERTIFICATE (one page) — Beamer
+%     Save as: certificate_beamer.tex
+% ---------------------------------------------------------------------
+% -> Compile with: pdflatex certificate_beamer.tex  (or xelatex)
+% =====================================================================
+
+% \iffalse
+\documentclass[a4]{beamer}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,ngerman]{babel}
+\usepackage{graphicx}
+\usepackage{ragged2e}
+\usepackage{tikz}
+\usepackage{ifthen}
+\usepackage{microtype}
+
+% -------------------- USER-FILL (certificate) ------------------------
+% Language toggle: set to de or en
+\def\CertificateLang{de}
+
+% Branding & org
+\newcommand*{\CertLeftLogo}{logo-color.pdf}   % optionalall.pdf
+\newcommand*{\CertRightLogo}{logo_right.png} % optional
+%\newcommand*{\CertOrg}{AI Summer School "AI and Robotics"}
+%\newcommand*{\CertDept}{Faculty of Electrical Engineering, Media and Computer Science}
+%\newcommand*{\CertURL}{https://www.oth-aw.de}
+
+% Recipient & event
+\newcommand*{\CertName}{Schüler:innen ab 14 Jahre}
+\newcommand*{\CertEvent}{Young Engineers}
+\newcommand*{\CertEventName}{Programmieren wie in der Fabrik der Zukunft}
+\newcommand*{\CertDates}{6. November 2025}
+\newcommand*{\CertPlace}{Amberg}
+\newcommand*{\CertHours}{15.30-17.30 Uhr}
+\newcommand*{\CertECTS}{1}
+
+% Issue
+\newcommand*{\CertIssuedAt}{Digitaler Campus OTH-AW}
+\newcommand*{\CertIssuedDate}{Raum 1.07}
+\newcommand*{\CertSigner}{Prof. Dr. Tatyana Ivanovska}
+\newcommand*{\CertSignerRole}{t.ivanovska@oth-aw.de}
+\newcommand*{\CertSignature}{signature.png} % optional scanned signature
+% Optional full-page background image (file path). Comment out to disable.
+\newcommand*{\CertBG}{2.png}
+% ---------------------------------------------------------------------
+\usetheme{default}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}{}
+\setbeamertemplate{frametitle}{}
+
+% A soft background frame
+%\definecolor{certbg}{RGB}{248,248,248}
+\addtobeamertemplate{background}{% 
+  \begin{tikzpicture}[remember picture,overlay]
+   % \fill[certbg] (current page.south west) rectangle (current page.north east);
+    % decorative border
+  %  \draw[line width=1pt] ([xshift=10mm,yshift=6mm]current page.south west)
+  %    rectangle ([xshift=-10mm,yshift=-6mm]current page.north east);
+  % Optional background image overlay (enable by uncommenting node below)
+ \node[anchor=center,opacity=0.4] at (current page.center)
+ {\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{Zeichnung.pdf}};
+  \end{tikzpicture}
+}
+
+\begin{document}
+\ifthenelse{\equal{\CertificateLang}{de}}{\selectlanguage{ngerman}}{\selectlanguage{english}}
+
+\begin{frame}[plain]
+\vspace*{-1mm}
+\hspace{-8mm}
+\begin{minipage}[t]{\linewidth}
+  %\raggedright
+  % Left logo (optional)
+  \includegraphics[width=5cm]{\CertLeftLogo}%width=11cm
+\end{minipage}\hfill
+\begin{minipage}[t]{\linewidth}
+  \raggedleft
+  % Right logo (optional)
+  %\includegraphics[height=1.2cm]{\CertRightLogo}
+\end{minipage}
+
+\vspace{6mm}
+\centering
+{\LARGE\bfseries \ifthenelse{\equal{\CertificateLang}{de}}{Robotik und Spaß? Ja, gerne!}{CERTIFICATE OF PARTICIPATION}}\\[1.2ex]
+{\large \CertOrg}\\[0.4ex]
+%{\small \CertDept\,\textbar\,\CertURL}
+
+\vspace{5mm}
+
+{\huge \bfseries \CertName}\\[1.2ex]
+{\large \ifthenelse{\equal{\CertificateLang}{de}}{sind herzlich zum kostenlosen Workshop eingeladen}{has successfully participated in}}\\[0.8ex]
+{\Large \textbf{\CertEvent}}\\
+{\textbf{\CertEventName}}\\[0.6ex]
+
+
+\vspace{2mm}
+{\normalsize \ifthenelse{\equal{\CertificateLang}{de}}{Wann:}{Total workload:}}\quad
+{\normalsize \textbf{\CertHours\, am}}
+{\large \CertDates\,\textendash\,\CertPlace}
+
+\vspace{4mm}
+\begin{minipage}[t]{0.45\linewidth}
+  \raggedright
+  \tiny{
+  \ifthenelse{\equal{\CertificateLang}{de}}{\normalsize{Wo}}{Place/Date}:\\[0.4ex]
+  \tiny{\textbf{\CertIssuedAt, \CertIssuedDate}}\\
+  {\tiny{\url{https://bayern.codeweek.de/programm/veranstaltung/2025-11-06-young-engineers-programmieren-wie-in-der-fabrik-der-zukunft}}}\\
+  
+  \includegraphics[width=1cm]{frame.eps}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.4\linewidth}
+\vspace{10mm}
+\hspace{4mm}
+
+  \raggedleft
+  % Optional scanned signature
+  %\includegraphics[height=16mm]{\CertSignature}\\[-0.4ex]
+  %\rule{60mm}{0.4pt}\\[-0.4ex]
+  \normalsize{Anmeldung per Email:} \\
+  %\tiny{\textbf{\CertSigner}}\\
+  { \emph{\CertSignerRole}}
+  }
+\end{minipage}
+
+\vfill
+\end{frame}
+
+\end{document}
+% \fi
